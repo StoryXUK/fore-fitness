@@ -153,12 +153,7 @@
       localStorage.setItem(MODAL_KEY, Date.now().toString());
     }
 
-    function shouldShowModalAutomatically() {
-      const lastShown = localStorage.getItem(MODAL_KEY);
-      if (!lastShown) return true;
-      const diff = Date.now() - Number(lastShown);
-      return diff > ONE_DAY_MS; // only once per day
-    }
+    
 
     // Auto-show modal after 2s, but only if not shown in last 24h
     window.addEventListener("load", function () {
