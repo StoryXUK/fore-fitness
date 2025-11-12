@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,17 +27,20 @@
     .banner {
       width: 100%;
       min-height: 100vh;
-      max-width: 1024px; /* Full width up to laptop size */
+      max-width: 1024px;
+      /* Full width up to laptop size */
       margin: 0 auto;
-      background-image: url("images/Pullup-2.jpg"); /* <-- update path if needed */
+      background-image: url("images/Pullup-2.jpg");
+      /* <-- update path if needed */
       background-size: cover;
       background-position: center top;
       background-repeat: no-repeat;
       position: relative;
       display: flex;
-      align-items: flex-end;        /* button down near the bottom */
+      align-items: flex-end;
+      /* button down near the bottom */
       justify-content: center;
-      padding-bottom: 80px;
+      padding-bottom: 50px;
     }
 
     /* Join us button */
@@ -49,26 +53,26 @@
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
       transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
     }
 
     .cta-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 22px rgba(0,0,0,0.3);
+      box-shadow: 0 12px 22px rgba(0, 0, 0, 0.3);
       background: #f3f4ff;
     }
 
     .cta-btn:active {
       transform: translateY(0);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
     }
 
     /* ---------- Modal ---------- */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.55);
+      background: rgba(0, 0, 0, 0.55);
       display: none;
       align-items: center;
       justify-content: center;
@@ -104,8 +108,15 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.96); }
-      to   { opacity: 1; transform: scale(1); }
+      from {
+        opacity: 0;
+        transform: scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     @media (max-width: 500px) {
@@ -138,34 +149,35 @@
   </div>
 
   <script>
-  const modal      = document.getElementById("modal");
-  const modalClose = document.getElementById("modalClose");
-  const openBtn    = document.getElementById("openModalBtn");
+    const modal = document.getElementById("modal");
+    const modalClose = document.getElementById("modalClose");
+    const openBtn = document.getElementById("openModalBtn");
 
-  // Always show modal after 2 seconds
-  window.addEventListener("load", function () {
-    setTimeout(() => {
+    // Always show modal after 2 seconds
+    window.addEventListener("load", function () {
+      setTimeout(() => {
+        modal.style.display = "flex";
+      }, 2000);
+    });
+
+    // "Join us" button manually opens modal anytime
+    openBtn.addEventListener("click", function () {
       modal.style.display = "flex";
-    }, 2000);
-  });
+    });
 
-  // "Join us" button manually opens modal anytime
-  openBtn.addEventListener("click", function () {
-    modal.style.display = "flex";
-  });
-
-  // Close using X
-  modalClose.addEventListener("click", function () {
-    modal.style.display = "none";
-  });
-
-  // Close by clicking outside the modal box
-  modal.addEventListener("click", function (e) {
-    if (e.target === modal) {
+    // Close using X
+    modalClose.addEventListener("click", function () {
       modal.style.display = "none";
-    }
-  });
-</script>
+    });
+
+    // Close by clicking outside the modal box
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  </script>
 
 </body>
+
 </html>
