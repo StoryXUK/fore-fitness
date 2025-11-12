@@ -138,43 +138,34 @@
   </div>
 
   <script>
-    const modal       = document.getElementById("modal");
-    const modalClose  = document.getElementById("modalClose");
-    const openBtn     = document.getElementById("openModalBtn");
-    const MODAL_KEY   = "foreFitnessModalLastShown";
-    const ONE_DAY_MS  = 24 * 60 * 60 * 1000;
+  const modal      = document.getElementById("modal");
+  const modalClose = document.getElementById("modalClose");
+  const openBtn    = document.getElementById("openModalBtn");
 
-    function showModal() {
+  // Always show modal after 2 seconds
+  window.addEventListener("load", function () {
+    setTimeout(() => {
       modal.style.display = "flex";
-      localStorage.setItem(MODAL_KEY, Date.now().toString());
-    }
+    }, 2000);
+  });
 
-    
+  // "Join us" button manually opens modal anytime
+  openBtn.addEventListener("click", function () {
+    modal.style.display = "flex";
+  });
 
-    // Auto-show modal after 2s, but only if not shown in last 24h
-    window.addEventListener("load", function () {
-      if (shouldShowModalAutomatically()) {
-        setTimeout(showModal, 2000);
-      }
-    });
+  // Close using X
+  modalClose.addEventListener("click", function () {
+    modal.style.display = "none";
+  });
 
-    // "Join us" button always opens the modal
-    openBtn.addEventListener("click", function () {
-      showModal();
-    });
-
-    // Close using X
-    modalClose.addEventListener("click", function () {
+  // Close by clicking outside the modal box
+  modal.addEventListener("click", function (e) {
+    if (e.target === modal) {
       modal.style.display = "none";
-    });
-
-    // Close by clicking outside the modal box
-    modal.addEventListener("click", function (e) {
-      if (e.target === modal) {
-        modal.style.display = "none";
-      }
-    });
-  </script>
+    }
+  });
+</script>
 
 </body>
 </html>
