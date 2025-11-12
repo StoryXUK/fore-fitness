@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fore Fitness – On Course</title>
+
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Full banner background */
+    .banner {
+      width: 450px;                 /* similar to pull-up banner width */
+      height: 100vh;                /* full viewport height */
+      max-width: 100%;
+      background-image: url("image/Pullup-2.jpg"); /* <-- update path if needed */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      display: flex;
+      align-items: flex-end;        /* button down near the bottom */
+      justify-content: center;
+      padding-bottom: 40px;
+    }
+
+    /* Join us button */
+    .cta-btn {
+      background: #ffffff;
+      color: #1f2933;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 22px rgba(0,0,0,0.3);
+      background: #f3f4ff;
+    }
+
+    .cta-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+    }
+
+    /* ---------- Modal ---------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 16px;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 12px;
+      width: 560px;
+      max-width: 100%;
+      overflow: hidden;
+      position: relative;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 28px;
+      cursor: pointer;
+      color: #333;
+      font-weight: bold;
+      z-index: 10000;
+    }
+
+    .modal-box iframe {
+      width: 100%;
+      height: 85vh;
+      border: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    @media (max-width: 500px) {
+      .banner {
+        width: 100%;
+      }
+
+      .cta-btn {
+        font-size: 15px;
+        padding: 10px 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Full Background Banner -->
+  <div class="banner">
+    <button class="cta-btn" id="openModalBtn">Join us</button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-box">
+      <span class="modal-close" id="modalClose">&times;</span>
+
+      <iframe
+        src="https://e264524a.sibforms.com/serve/MUIFAA1w9Jz5iC7KbDQKX4C1cadEWk8BRkrlL609frJ0kPQNIO7uxCPRHlQOj3lCrmVm-8dLDk0Kvb7xeRSJz9g4vQGvqKUMbTMs3GvhDOPMkcVOeAmkxTqk765mSUKDBeWTgamsGEz_U1Bo01xGWnc5jYhYueIiBMW0RHmacJ9I4ZY3IPrkykJVAoh7_x33mDA-blSm2wABIxXP"
+        scrolling="auto"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <script>
+    const modal       = document.getElementById("modal");
+    const modalClose  = document.getElementById("modalClose");
+    const openBtn     = document.getElementById("openModalBtn");
+    const MODAL_KEY   = "foreFitnessModalLastShown";
+    const ONE_DAY_MS  = 24 * 60 * 60 * 1000;
+
+    function showModal() {
+      modal.style.display = "flex";
+      localStorage.setItem(MODAL_KEY, Date.now().toString());
+    }
+
+    function shouldShowModalAutomatically() {
+      const lastShown = localStorage.getItem(MODAL_KEY);
+      if (!lastShown) return true;
+      const diff = Date.now() - Number(lastShown);
+      return diff > ONE_DAY_MS; // only once per day
+    }
+
+    // Auto-show modal after 2s, but only if not shown in last 24h
+    window.addEventListener("load", function () {
+      if (shouldShowModalAutomatically()) {
+        setTimeout(showModal, 2000);
+      }
+    });
+
+    // "Join us" button always opens the modal
+    openBtn.addEventListener("click", function () {
+      showModal();
+    });
+
+    // Close using X
+    modalClose.addEventListener("click", function () {
+      modal.style.display = "none";
+    });
+
+    // Close by clicking outside the modal box
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  </script>
+
+</body>
+</html>
